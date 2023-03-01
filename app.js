@@ -3,9 +3,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 let employeeData = [
-  { id: 1, name: "Maharshi" },
-  { id: 2, name: "Maharshi 2" },
-  { id: 3, name: "Maharshi 3" },
+  { id: 1, name: "Maharshi",age: '22' },
+  { id: 2, name: "Maharshi 2",age: '30' },
+  { id: 3, name: "Maharshi 3",age: '40' },
 ];
 
 const app = express();
@@ -28,6 +28,7 @@ app.post("/create-employee", (req, res) => {
     ...employeeData,
     {
       name: req.body.name,
+      age: req.body.age,
       id: Math.random(),
     },
   ];
@@ -45,12 +46,14 @@ app.delete("/delete-employee", (req, res) => {
 app.put("/edit-employee", (req, res) => {
   let id = req.query.id;
   let updatedName = req.query.name;
+  let updatedAge = req.query.age;
   employeeData = [
     ...employeeData.map((employee) => {
       if (employee.id == id) {
         return {
           ...employee,
           name: updatedName,
+          age: updatedAge
         };
       } else {
         return {
